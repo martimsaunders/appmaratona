@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Maratona">
+<meta name="theme-color" content="#16223A">
+<title>Maratona 19 dez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF0F4;--surface:#FFFFFF;--ink:#16223A;--muted:#5B6678;--line:#D5DBE4;
+  --bib:#F2C230;--run:#2457C5;--long:#0F3A8A;--race:#D7263D;--str:#7A4FB5;
+  --climb:#2F8556;--gym:#B26B00;--rest:#8A94A6;--g:#2F8556;--a:#C98A00;--r:#D7263D;
+  --nav:#16223A;--navink:#C9D2E3;
+  --cond:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1524;--surface:#172238;--ink:#E8EDF5;--muted:#9AA6BA;--line:#2A3752;
+  --run:#6C97F0;--long:#8FB1FF;--str:#B08BE6;--climb:#5BC38A;--gym:#E0A040;--rest:#7D889C;
+  --g:#5BC38A;--a:#E5B23A;--r:#F05468;--nav:#0A101C;--navink:#9AA6BA;
+}}
+:root[data-theme="dark"]{
+  --bg:#0E1524;--surface:#172238;--ink:#E8EDF5;--muted:#9AA6BA;--line:#2A3752;
+  --run:#6C97F0;--long:#8FB1FF;--str:#B08BE6;--climb:#5BC38A;--gym:#E0A040;--rest:#7D889C;
+  --g:#5BC38A;--a:#E5B23A;--r:#F05468;--nav:#0A101C;--navink:#9AA6BA;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;min-height:100%}
+main{max-width:620px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{font-family:var(--cond);font-weight:700;line-height:1.1;margin:0}
+h2{font-size:1.6rem;margin:28px 0 10px}
+h3{font-size:1.25rem}
+p{margin:0 0 10px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid var(--bib);outline-offset:2px}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+
+/* Bib */
+.bib{position:relative;background:var(--surface);border:2px solid var(--ink);border-radius:6px;padding:0 0 16px;margin-top:4px;overflow:hidden}
+.bib-band{background:var(--bib);color:#16223A;font-family:var(--cond);font-weight:700;font-size:1.05rem;padding:8px 40px;text-align:center;border-bottom:2px solid var(--ink)}
+.bib-num{font-family:var(--cond);font-weight:800;font-size:clamp(6rem,30vw,9.5rem);line-height:.9;text-align:center;letter-spacing:-.02em;margin-top:14px;font-variant-numeric:tabular-nums}
+.bib-cap{text-align:center;font-family:var(--cond);font-size:1.3rem;font-weight:600}
+.bib-foot{text-align:center;color:var(--muted);margin-top:6px}
+.pin{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+.pin.tl{top:8px;left:10px}.pin.tr{top:8px;right:10px}.pin.bl{bottom:10px;left:10px}.pin.br{bottom:10px;right:10px}
+
+/* Sessions */
+.ses{background:var(--surface);border-radius:10px;padding:14px 14px 12px 18px;margin:10px 0;position:relative;border:1px solid var(--line)}
+.ses::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:10px 0 0 10px;background:var(--c,var(--rest))}
+.t-run{--c:var(--run)}.t-long{--c:var(--long)}.t-race{--c:var(--race)}.t-str{--c:var(--str)}.t-climb{--c:var(--climb)}.t-gym{--c:var(--gym)}.t-rest{--c:var(--rest)}
+.ses-h{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.ses h3{color:var(--c)}
+.ses ul{margin:8px 0 0;padding-left:18px}
+.ses li{margin:3px 0}
+.ses.done{opacity:.72}
+.ses.done h3{text-decoration:line-through;text-decoration-thickness:2px}
+.chk{flex:none;border:2px solid var(--c);background:transparent;border-radius:999px;padding:4px 12px;font-weight:600;font-size:.9rem;color:var(--c);min-height:36px}
+.chk[aria-pressed="true"]{background:var(--c);color:var(--surface)}
+.feel{margin-top:10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.feel span{font-size:.9rem;color:var(--muted);margin-right:4px}
+.fb{border:1.5px solid var(--line);background:transparent;border-radius:6px;padding:4px 10px;font-size:.88rem;min-height:34px}
+.fb[data-v="g"][aria-pressed="true"]{background:var(--g);border-color:var(--g);color:#fff}
+.fb[data-v="a"][aria-pressed="true"]{background:var(--a);border-color:var(--a);color:#16223A}
+.fb[data-v="r"][aria-pressed="true"]{background:var(--r);border-color:var(--r);color:#fff}
+.advice{font-size:.9rem;margin-top:8px;padding:8px 10px;border-radius:6px;background:var(--bg)}
+.ex{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:4px 0}
+.ex b{font-family:var(--cond);font-size:1.05rem}
+
+/* Progress */
+.prog{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:10px}
+.bar{height:12px;border-radius:6px;background:var(--bg);overflow:hidden;margin:8px 0 4px;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--run)}
+.stats{display:flex;gap:18px;flex-wrap:wrap}
+.stats div b{font-family:var(--cond);font-size:1.6rem;display:block;line-height:1}
+
+/* Weeks */
+.wk-strip{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.wk-strip::-webkit-scrollbar{display:none}
+.wk{flex:none;min-width:48px;min-height:48px;border:2px solid var(--line);background:var(--surface);border-radius:8px;font-family:var(--cond);font-weight:700;font-size:1.15rem}
+.wk[aria-current="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.wk.now{box-shadow:inset 0 -4px 0 var(--bib)}
+.wk-head{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:6px}
+.wk-head .km{font-family:var(--cond);font-weight:800;font-size:2.4rem;line-height:1}
+.tag{display:inline-block;background:var(--bib);color:#16223A;font-weight:600;font-size:.82rem;border-radius:4px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.day{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0}
+.day.today{border:2px solid var(--ink)}
+.day-row{display:flex;gap:12px;align-items:center}
+.dl{width:52px;flex:none}
+.dl b{font-family:var(--cond);font-size:1.25rem;display:block;line-height:1}
+.dl span{font-size:.82rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:.85rem;border-radius:5px;padding:2px 8px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);font-weight:600;border:1px solid color-mix(in srgb,var(--c) 35%,transparent)}
+.chip.ok::after{content:" ✓"}
+.day-open{padding:0 2px 4px}
+
+/* Guide */
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:8px 0;padding:0 14px}
+summary{font-family:var(--cond);font-weight:700;font-size:1.3rem;padding:14px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"−"}
+details>div{padding-bottom:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl td,.tbl th{border-top:1px solid var(--line);padding:7px 6px 7px 0;text-align:left;vertical-align:top}
+.tbl th{font-family:var(--cond);font-size:1rem}
+.scroll{overflow-x:auto}
+.light{display:flex;gap:10px;margin:8px 0}
+.light i{flex:none;width:14px;height:14px;border-radius:50%;margin-top:4px}
+
+/* Settings */
+.set{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0}
+.set label{display:block;font-weight:600;margin-bottom:6px}
+.pills{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.pill{border:2px solid var(--line);background:transparent;border-radius:8px;min-height:44px;font-family:var(--cond);font-weight:700;font-size:1.05rem}
+.pill[aria-pressed="true"]{background:var(--c,var(--ink));border-color:var(--c,var(--ink));color:var(--surface)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:8px;padding:10px}
+textarea{min-height:90px;font-size:.8rem}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.row3 label{font-size:.85rem}
+.warn{border-left:4px solid var(--a);padding:6px 10px;margin:6px 0;background:var(--bg);border-radius:0 6px 6px 0;font-size:.92rem}
+.warn.hard{border-left-color:var(--r)}
+.btn{border:2px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:8px;padding:9px 14px;font-weight:600;min-height:44px;margin:8px 8px 0 0}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.danger{border-color:var(--r);background:transparent;color:var(--r)}
+.hint{font-size:.88rem;color:var(--muted);margin-top:6px}
+
+/* Nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--nav);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
+nav.tabs .in{display:flex;width:100%;max-width:620px}
+nav.tabs button{flex:1;background:none;border:0;color:var(--navink);padding:10px 4px 12px;font-family:var(--cond);font-weight:600;font-size:1.05rem;min-height:56px;border-top:3px solid transparent}
+nav.tabs button[aria-current="page"]{color:#fff;border-top-color:var(--bib)}
+@media (prefers-reduced-motion:no-preference){.chk,.fb,.pill{transition:background .15s,color .15s}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav class="tabs" aria-label="Secções"><div class="in">
+  <button data-tab="hoje">Hoje</button>
+  <button data-tab="semanas">Semanas</button>
+  <button data-tab="guia">Guia</button>
+  <button data-tab="def">Definições</button>
+</div></nav>
+<script>
+const DAYS=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
+const DS=["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"];
+const MON=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const START=[2026,9,12]; // segunda 12 out 2026
+const RACE_G=68;          // sábado 19 dez 2026
+const WEEKS=[
+ {r:[5,5],L:{km:12},focus:"Semana de adaptação. Força fase 1. Só percursos planos.",ph:1},
+ {r:[5,6],L:{km:16},focus:"Primeiro teste de abastecimento: gel ou gomas aos 45 min.",ph:1},
+ {r:[6,6],L:{km:19},focus:"Corrida mais longa desde há muito. Pausas a andar à vontade.",ph:1},
+ {r:[5,5],L:{km:14,rp:"Últimos 4 km a ritmo de prova"},focus:"Semana leve para absorver o treino. Começa a força fase 2.",ph:2,easy:true},
+ {r:[6,7],L:{km:22},focus:"Abastecimento de prova completo a partir daqui. Testa o corre-anda no longo.",ph:2},
+ {r:[6,8],L:{km:25,rp:"km 15–22 a ritmo de prova"},focus:"Ritmo de prova com pernas cansadas.",ph:2},
+ {r:[6,8],L:{km:28,peak:true},focus:"Ensaio geral: equipamento, sapatilhas, pequeno-almoço, géis e hora de partida iguais à prova.",ph:2},
+ {r:[6,6],L:{km:20,rp:"km 8–16 a ritmo de prova"},focus:"Começa a redução de carga. Força fase 3 (manutenção).",ph:3},
+ {r:[5,5],L:{km:13,rp:"Últimos 5 km a ritmo de prova"},focus:"Última sessão de força até quarta 9 dez.",ph:3},
+ {race:true,focus:"Sem força. Dormir bem, carregar hidratos quinta e sexta, descansar."}
+];
+const STR=[
+ {id:"A1",n:"Elevação de gémeos, joelho fletido",p1:"3×15, 2 pernas, peso corporal",p2:"3×12 a 1 perna, com haltere ou mochila",k:"Joelhos fletidos 30–40°, costas na parede. Pausa 1 s em cima."},
+ {id:"A2",n:"Elevação de gémeos, joelho esticado",p1:"3×12, 2 pernas, chão plano",p2:"3×12 a 1 perna, calcanhar a descer do degrau",k:"Amplitude total e controlada. Degrau só quando o chão for fácil."},
+ {id:"B1",n:"Afundo → afundo búlgaro",p1:"3×8 cada perna, peso corporal",p2:"3×8 cada perna, búlgaro (pé de trás no banco) com peso",k:"Joelho da frente alinhado com os pés. Desce devagar."},
+ {id:"B2",n:"Peso morto romeno a 1 perna",p1:"3×8 cada perna, mão na parede",p2:"3×8 cada perna, haltere na mão oposta",k:"Anca para trás, costas direitas. Sente nos isquiotibiais e glúteo."},
+ {id:"C1",n:"Step-up (banco à altura do joelho)",p1:"3×10 cada perna",p2:"3×10 cada perna, com pesos",k:"Empurra com o pé todo. Não impulsiones com a perna de trás."},
+ {id:"C2",n:"Ponte de glúteos → a 1 perna",p1:"3×12, 2 pernas",p2:"3×10 cada perna",k:"Aperta os glúteos em cima e segura 2 s."},
+ {id:"D",n:"Prancha lateral + dead bug",p1:"2×30 s cada lado + 2×10 cada lado",p2:"2×40 s cada lado + 2×12 cada lado",k:"Core firme para manter a técnica no fim da prova."}
+];
+const SK="maratona19dez:v1";
+function defaults(){return{cfg:{name:"",climb:[0,4],gym:[2],runs:[1,3],long:5,strength:0,easy:"7:00–7:30",longp:"7:45–8:15",race:"7:40–7:45"},log:{}};}
+function load(){let d=null;try{d=JSON.parse(localStorage.getItem(SK)||"null")}catch(e){}const b=defaults();if(!d)return b;return{cfg:Object.assign(b.cfg,d.cfg||{}),log:d.log||{}};}
+function save(){try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}}
+let S=load();
+let UI={tab:"hoje",week:null,open:null};
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function dateOf(g){return new Date(START[0],START[1],START[2]+g)}
+function keyOf(g){const d=dateOf(g);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function fmt(g){const d=dateOf(g);return d.getDate()+" "+MON[d.getMonth()]}
+function todayG(){const t=new Date();const a=new Date(t.getFullYear(),t.getMonth(),t.getDate());const s=new Date(START[0],START[1],START[2]);return Math.round((a-s)/864e5)}
+const curWeek=()=>Math.min(9,Math.max(0,Math.floor(todayG()/7)));
+
+function strLines(ph,w){
+  const L=["Aquecimento 5 min: andar/bicicleta, balanços de perna, círculos de tornozelo, 10 agachamentos + 10 pontes.",
+           "Pares A, B, C seguidos; descanso 45–60 s entre voltas. 2 s a subir, 3 s a descer."];
+  STR.forEach(e=>{let p=ph===1?e.p1:e.p2;if(ph===3)p=p.replace(/^3×/,"2×");L.push(`<span class="ex"><b>${e.id}</b><span>${e.n}: ${p}</span></span>`)});
+  if(ph===3)L.push("Fase 3: só 2 séries e cerca de 20% menos peso. Manter, não cansar.");
+  if(ph===2)L.push("Quando a última repetição de todas as séries for fácil, sobe 2–5 kg na semana seguinte.");
+  if(w===8&&S.cfg.strength>2)L.unshift("<b>Esta semana faz o reforço até quarta 9 dez.</b>");
+  return L;
+}
+function sessions(g){
+  if(g<0||g>RACE_G)return[];
+  const w=Math.floor(g/7),d=g%7,W=WEEKS[w],c=S.cfg,out=[];
+  const runs=[...c.runs].sort((a,b)=>a-b);
+  const eveOfLong=((d+1)%7)===c.long;
+  const calf="Depois: rotina de gémeos (5 min) — 2×15 elevações joelho fletido + 2×15 joelho esticado.";
+  if(c.climb.includes(d)){
+    const l=[];
+    if(W.race&&g===RACE_G-1)l.push("Véspera da prova: salta ou faz algo muito leve.");
+    else if(W.race)l.push("Semana da prova: sessão leve.");
+    else if(eveOfLong)l.push("Véspera do longo: mantém a sessão leve.");
+    if(g<=RACE_G)out.push({id:"climb",t:"climb",title:"Escalada",lines:l});
+  }
+  if(W.race){
+    if(runs[0]===d&&g<RACE_G-1)out.push({id:"run1",t:"run",km:5,title:"Corrida — 5 km",lines:[`Fácil a ${c.easy} /km, com 2 km a ritmo de prova (${c.race} /km).`,calf]});
+    const sh=(runs[1]===3||runs[1]===4)?runs[1]:3;
+    if(d===sh)out.push({id:"run2",t:"run",km:3,title:"Soltar pernas — 3 km",lines:["Muito fácil. Só para manter as pernas vivas.","Começa a carga de hidratos (quinta e sexta)."]});
+    if(g===RACE_G)out.push({id:"race",t:"race",km:42.2,title:"Maratona — 42,2 km",lines:[
+      "Pequeno-almoço 2–4 h antes, igual ao dos longos das semanas 6 e 7.",
+      `0–10 km: 5–10 s/km mais lento que o ritmo alvo (${c.race} /km). Vai parecer fácil demais. É assim mesmo.`,
+      "10–30 km: ritmo alvo. Abastece a cada 30–40 min, com ou sem fome.",
+      "30–42 km: aguenta o ritmo. É aqui que a prova se decide.",
+      "Anda nos abastecimentos. Bebe quando tiveres sede, não em todos os postos. Nada de novo hoje."]});
+    if(c.gym.includes(d)&&d<=3)out.push({id:"gym",t:"gym",title:"Ginásio",lines:["Semana da prova: leve e sem pernas, ou salta."]});
+    if(c.strength===d&&false){}
+  }else{
+    const ri=runs.indexOf(d);
+    if(ri>=0&&d!==c.long){const km=W.r[ri];const l=[`Ritmo ${c.easy} /km, a conseguir conversar.`,calf];if(w<2)l.splice(1,0,"Percurso plano.");out.push({id:"run"+(ri+1),t:"run",km,title:`Corrida fácil — ${km} km`,lines:l});}
+    if(d===c.long){const L=W.L,l=[`Ritmo ${c.longp} /km. Mais lento que o de prova, de propósito.`];
+      if(L.rp)l.push(`${L.rp} (${c.race} /km).`);
+      if(w===1)l.push("Testa um gel ou gomas aos 45 min.");
+      if(w===2||w===3)l.push("Treina o abastecimento: gel a cada 30–40 min a partir dos 45 min.");
+      if(w>=4)l.push("Abastecimento de prova: 30–60 g de hidratos por hora, desde os 30–45 min.");
+      if(w===4)l.push("Experimenta corre-anda: 9 min a correr + 1 min a andar. Decide se o usas na prova.");
+      if(w===6)l.push("Tudo igual ao dia da prova: roupa, sapatilhas, pequeno-almoço, géis, hora.");
+      if(w===2)l.push("Pausas a andar sempre que precisares.");
+      l.push("Depois: refeição com hidratos e proteína em 1–2 h.");
+      out.push({id:"long",t:"long",km:L.km,title:`Longo — ${L.km} km${L.peak?" (pico)":""}`,lines:l});}
+    if(c.gym.includes(d)){const l=[];if(eveOfLong)l.push("Véspera do longo: nada de pernas pesadas.");out.push({id:"gym",t:"gym",title:"Ginásio",lines:l});}
+    if(c.strength===d&&W.ph)out.push({id:"str",t:"str",title:`Reforço de pernas — fase ${W.ph}`,lines:strLines(W.ph,w)});
+  }
+  if(!out.length){const prevLong=((d+6)%7)===c.long&&g>0;
+    if(g===RACE_G+1)return[];
+    out.push({id:"rest",t:"rest",rest:true,title:prevLong?"Recuperação":"Descanso",lines:prevLong?["Descanso ou caminhada de 20–30 min."]:[]});}
+  return out;
+}
+function weekKm(w){let k=0;for(let d=0;d<7;d++)sessions(w*7+d).forEach(s=>{if(s.km)k+=s.km});return Math.round(k*10)/10}
+function lk(g,s){return keyOf(g)+"|"+s.id}
+function totals(){let plan=0,toDate=0,done=0,sesDone=0,sesToDate=0;const t=todayG();
+  for(let g=0;g<=RACE_G;g++)sessions(g).forEach(s=>{if(s.rest)return;const L=S.log[lk(g,s)]||{};
+    if(s.km)plan+=s.km;if(g<=t){if(s.km)toDate+=s.km;sesToDate++}if(L.done){if(s.km)done+=s.km;sesDone++}});
+  return{plan:Math.round(plan),toDate:Math.round(toDate*10)/10,done:Math.round(done*10)/10,sesDone,sesToDate};}
+
+const ADV={g:"Verde: segue o plano.",a:"Âmbar (dor 3–4/10 ou rigidez que passa em 24 h): não aumentes — repete a distância do longo desta semana e usa pausas a andar.",r:"Vermelho (dor acima de 4/10, a piorar ou a coxear): para, 2–3 dias sem correr e consulta um fisioterapeuta. Recomeça na última semana que correu bem."};
+function card(g,s){
+  const k=lk(g,s),L=S.log[k]||{};
+  const isRun=["run","long","race"].includes(s.t);
+  return `<article class="ses t-${s.t}${L.done?" done":""}">
+  <div class="ses-h"><h3>${s.title}</h3>${s.rest?"":`<button class="chk" data-act="done" data-k="${k}" aria-pressed="${!!L.done}">${L.done?"Feito":"Marcar feito"}</button>`}</div>
+  ${s.lines.length?`<ul>${s.lines.map(l=>`<li>${l}</li>`).join("")}</ul>`:""}
+  ${isRun?`<div class="feel"><span>Como ficaram as pernas?</span>${["g","a","r"].map(v=>`<button class="fb" data-act="feel" data-k="${k}" data-v="${v}" aria-pressed="${L.feel===v}">${{g:"Verde",a:"Âmbar",r:"Vermelho"}[v]}</button>`).join("")}</div>${L.feel?`<div class="advice">${ADV[L.feel]}</div>`:""}`:""}
+  </article>`;
+}
+
+function vHoje(){
+  const t=todayG(),c=S.cfg;let h="";
+  const left=RACE_G-t;
+  const w=Math.floor(t/7);
+  h+=`<section class="bib" aria-label="Contagem decrescente"><i class="pin tl"></i><i class="pin tr"></i><i class="pin bl"></i><i class="pin br"></i>
+    <div class="bib-band">Maratona de 19 de dezembro</div>
+    <div class="bib-num">${left>0?left:left===0?"0":"✓"}</div>
+    <div class="bib-cap">${left>1?"dias para a prova":left===1?"dia para a prova":left===0?"É hoje":"Prova feita"}</div>
+    <div class="bib-foot">${c.name?esc(c.name)+", ":""}${t<0?"o plano começa a 12 out":t>RACE_G?"parabéns":`semana ${w+1} de 10`}</div></section>`;
+  if(t>=0&&t<=RACE_G){
+    const d=dateOf(t);
+    h+=`<h2>Hoje, ${DAYS[(t%7+7)%7].toLowerCase()} ${fmt(t)}</h2>`+sessions(t).map(s=>card(t,s)).join("");
+    if(t+1<=RACE_G){h+=`<h2>Amanhã</h2><div class="chips">${sessions(t+1).map(s=>`<span class="chip t-${s.t}">${s.title}</span>`).join("")}</div>`;}
+  }else if(t<0){h+=`<h2>Primeiro dia</h2>`+sessions(0).map(s=>card(0,s)).join("");}
+  const T=totals();const pct=T.toDate?Math.min(100,Math.round(T.done/T.toDate*100)):0;
+  h+=`<h2>Progresso</h2><section class="prog"><div class="stats">
+    <div><b>${T.done} km</b><span class="small muted">feitos</span></div>
+    <div><b>${T.toDate} km</b><span class="small muted">previstos até hoje</span></div>
+    <div><b>${T.plan} km</b><span class="small muted">no plano todo</span></div></div>
+    <div class="bar" role="img" aria-label="${pct}% dos km previstos até hoje"><i style="width:${pct}%"></i></div>
+    <div class="small muted">${T.sesDone} de ${T.sesToDate} sessões previstas até hoje marcadas como feitas.</div></section>`;
+  return h;
+}
+function vSemanas(){
+  if(UI.week===null)UI.week=curWeek();
+  const w=UI.week,W=WEEKS[w],t=todayG(),cw=curWeek();
+  let h=`<h2 style="margin-top:6px">Semanas</h2><div class="wk-strip" role="tablist">${WEEKS.map((_,i)=>`<button class="wk${i===cw&&t>=0&&t<=RACE_G?" now":""}" data-act="week" data-w="${i}" aria-current="${i===w}">S${i+1}</button>`).join("")}</div>`;
+  const g0=w*7,g1=Math.min(w*7+6,RACE_G);
+  h+=`<section class="wk-head"><div class="km">${weekKm(w)} km</div>
+    <h3>Semana ${w+1}: ${fmt(g0)} a ${fmt(g1)}${W.easy?'<span class="tag">semana leve</span>':""}${W.race?'<span class="tag">prova</span>':""}${W.L&&W.L.peak?'<span class="tag">pico</span>':""}</h3>
+    <p class="muted small" style="margin:6px 0 0">${W.focus}</p></section>`;
+  for(let d=0;d<7;d++){const g=g0+d;if(g>RACE_G)break;const ss=sessions(g);
+    const open=UI.open===g;
+    h+=`<div class="day${g===t?" today":""}"><button class="day-row" data-act="open" data-g="${g}" aria-expanded="${open}" style="background:none;border:0;width:100%;padding:0;text-align:left">
+      <div class="dl"><b>${DS[d]}</b><span>${fmt(g)}</span></div>
+      <div class="chips">${ss.map(s=>{const L=S.log[lk(g,s)]||{};return `<span class="chip t-${s.t}${L.done?" ok":""}">${s.title.replace("Reforço de pernas","Reforço").replace("Corrida fácil","Corrida")}</span>`}).join("")}</div></button>
+      ${open?`<div class="day-open">${ss.map(s=>card(g,s)).join("")}</div>`:""}</div>`;}
+  return h;
+}
+function vGuia(){
+  const c=S.cfg;
+  return `<h2 style="margin-top:6px">Guia</h2>
+  <details open><summary>Ritmos</summary><div><table class="tbl">
+   <tr><th>Tipo</th><th>Ritmo /km</th><th>Sensação</th></tr>
+   <tr><td>Corridas da semana</td><td>${esc(c.easy)}</td><td>A conversar em frases completas.</td></tr>
+   <tr><td>Longos</td><td>${esc(c.longp)}</td><td>Mais lento que o de prova, de propósito. A distância é o estímulo.</td></tr>
+   <tr><td>Ritmo de prova</td><td>${esc(c.race)}</td><td>Praticado dentro dos longos a partir da semana 4.</td></tr>
+  </table><p class="hint">Sem séries nem treinos rápidos neste bloco: cerca de 80% do treino de resistência deve ser fácil. Os ritmos alteram-se em Definições.</p></div></details>
+  <details><summary>Reforço de pernas</summary><div>
+   <p>30 min, uma vez por semana, pelo menos 48 h antes do longo. Lento e controlado: 2 s a subir, 3 s a descer.</p>
+   <p class="small muted">Aquecimento 5 min: 2 min a andar ou bicicleta, 10 balanços de perna à frente/trás e 10 de lado, 10 círculos de tornozelo, 10 agachamentos + 10 pontes.</p>
+   <div class="scroll"><table class="tbl"><tr><th></th><th>Exercício</th><th>Fase 1 (S1–3)</th><th>Fase 2 (S4–7)</th></tr>
+   ${STR.map(e=>`<tr><td><b>${e.id}</b></td><td>${e.n}<div class="small muted">${e.k}</div></td><td>${e.p1}</td><td>${e.p2}</td></tr>`).join("")}</table></div>
+   <p class="hint">Fase 3 (S8–9): exercícios da fase 2, só 2 séries e ~20% menos peso. Semana da prova: sem reforço.</p></div></details>
+  <details><summary>Rotina de gémeos (5 min)</summary><div>
+   <p>Depois de cada corrida da semana: 2×15 elevações com joelho fletido e 2×15 com joelho esticado, lentas, 2 pernas.</p>
+   <p class="small muted">Alongamentos e rolo são opcionais. Não substituem o reforço.</p></div></details>
+  <details><summary>Semáforo</summary><div>
+   <p class="small">Usa depois de cada corrida e de manhã.</p>
+   <div class="light"><i style="background:var(--g)"></i><div><b>Verde</b> — dor 0–2/10 e passa até à manhã seguinte. Segue o plano.</div></div>
+   <div class="light"><i style="background:var(--a)"></i><div><b>Âmbar</b> — 3–4/10 ou rigidez que passa em 24 h. Repete a distância do longo desta semana; pausas a andar.</div></div>
+   <div class="light"><i style="background:var(--r)"></i><div><b>Vermelho</b> — acima de 4/10, a piorar, a coxear. Para, 2–3 dias sem correr, fisioterapeuta.</div></div>
+   <p class="hint">Médico logo se a barriga da perna inchar, ficar quente ou vermelha, doer em repouso, ou se a dor começou com um estalo.</p></div></details>
+  <details><summary>Organizar a semana</summary><div>
+   <p>Um dia de folga entre corridas sempre que possível. Véspera do longo fácil ou descanso. Reforço pelo menos 48 h antes do longo. Dia a seguir ao longo: descanso ou caminhada.</p>
+   <p>Se tiveres de cortar: primeiro uma corrida da semana, depois o reforço. Protege o longo.</p>
+   <p class="small muted">Falhaste uns dias: continua, sem compensar km. Falhaste uma semana: repete a última semana feita (podes cortar a semana leve). Duas ou mais: limita o longo maior a 24–25 km e usa corre-anda na prova.</p></div></details>
+  <details><summary>Corre-anda e prova</summary><div>
+   <p>9 min a correr + 1 min a andar rápido. Para manter a média de prova, os troços a correr ficam uns 20–25 s/km mais rápidos. Experimenta no longo da semana 5; se resultar, usa nas semanas 6, 7 e na prova. Na prova faz como treinaste.</p>
+   <p>Prova: 0–10 km mais lento que o alvo, 10–30 km no alvo com abastecimento a cada 30–40 min, 30–42 km aguentar. Em dezembro, parte com uma camisola velha ou saco que possas deitar fora e luvas leves.</p></div></details>
+  <details><summary>Alimentação</summary><div>
+   <p><b>Dia a dia:</b> não tentes perder peso neste bloco. Hidratos 3–5 g/kg em dias normais, 5–7 g/kg na véspera e no dia dos longos. Proteína 1,4–1,6 g/kg/dia em 3–4 refeições. Dormir 7–9 h.</p>
+   <p><b>Nos longos e na prova:</b> 30–60 g de hidratos por hora a partir dos 30–45 min (um gel tem 20–25 g). Treina o estômago em todos os treinos acima de 90 min. Usa o mesmo produto que vais usar na prova.</p>
+   <p><b>Hidratação:</b> bebe quando tens sede, 400–800 ml/h, menos com frio. Beber demais é perigoso. Pesa-te antes e depois de um longo: se aumentaste, bebeste demais.</p>
+   <p><b>Últimos dias:</b> quinta e sexta carga de hidratos (8–10 g/kg/dia), pouca fibra e gordura. Pequeno-almoço 2–4 h antes da partida, 1–3 g/kg, testado nas semanas 6 e 7. Nada de novo no dia.</p></div></details>
+  <p class="hint">Orientação geral, não aconselhamento médico.</p>`;
+}
+function warnings(c){
+  const w=[],L=c.long,r=c.runs,before=(L+6)%7,after=(L+1)%7;
+  if(r.length!==2)w.push(["hard","Escolhe exatamente 2 dias para as corridas da semana."]);
+  if(r.includes(L))w.push(["hard","O longo não pode ser no mesmo dia de uma corrida da semana."]);
+  if(r.length===2&&[1,6].includes(Math.abs(r[0]-r[1])))w.push(["hard","As duas corridas estão em dias seguidos. Deixa um dia de folga entre elas."]);
+  if(r.includes(before))w.push(["hard",`Corrida na véspera do longo (${DAYS[before].toLowerCase()}). A véspera deve ser fácil ou descanso.`]);
+  if(r.includes(after))w.push(["hard","Corrida no dia a seguir ao longo. Esse dia deve ser descanso ou caminhada."]);
+  if(((L-c.strength+7)%7)<2)w.push(["hard","O reforço tem de ficar pelo menos 48 h antes do longo."]);
+  if(c.climb.includes(before))w.push(["soft",`Escalada na véspera do longo: mantém-na leve.`]);
+  if(c.gym.includes(before))w.push(["soft",`Ginásio na véspera do longo: evita pernas.`]);
+  if(L!==5)w.push(["soft","A prova é a um sábado; o plano recomenda o longo ao sábado a partir da semana 6."]);
+  return w;
+}
+function pills(field,multi,col){
+  const c=S.cfg,v=c[field];
+  return `<div class="pills" role="group">${DS.map((n,i)=>`<button class="pill" style="--c:var(${col})" data-act="pill" data-f="${field}" data-m="${multi}" data-d="${i}" aria-pressed="${multi?v.includes(i):v===i}">${n}</button>`).join("")}</div>`;
+}
+function vDef(){
+  const c=S.cfg,W=warnings(c);
+  return `<h2 style="margin-top:6px">Definições</h2>
+  <div class="set"><label for="nm">Nome</label><input id="nm" type="text" data-act="name" value="${esc(c.name)}" placeholder="Opcional" autocomplete="off"></div>
+  <div class="set"><label>Corridas da semana (2 dias)</label>${pills("runs",1,"--run")}
+   <label style="margin-top:14px">Longo</label>${pills("long",0,"--long")}
+   <label style="margin-top:14px">Reforço de pernas</label>${pills("strength",0,"--str")}
+   <label style="margin-top:14px">Escalada</label>${pills("climb",1,"--climb")}
+   <label style="margin-top:14px">Ginásio</label>${pills("gym",1,"--gym")}
+   ${W.length?`<div style="margin-top:12px">${W.map(([l,m])=>`<div class="warn ${l}">${m}</div>`).join("")}</div>`:`<p class="hint">A semana cumpre as regras do plano.</p>`}
+   <p class="hint">A prova fica sempre no sábado 19 dez. Na semana da prova as corridas ajustam-se sozinhas.</p></div>
+  <div class="set"><label>Ritmos (min/km)</label><div class="row3">
+   <div><label for="pe">Fácil</label><input id="pe" type="text" data-act="pace" data-f="easy" value="${esc(c.easy)}"></div>
+   <div><label for="pl">Longo</label><input id="pl" type="text" data-act="pace" data-f="longp" value="${esc(c.longp)}"></div>
+   <div><label for="pr">Prova</label><input id="pr" type="text" data-act="pace" data-f="race" value="${esc(c.race)}"></div></div>
+   <p class="hint">Os valores vêm do plano original. Ajusta ao teu nível: o longo deve ser ~10–30 s/km mais lento que o de prova, e o fácil confortável.</p></div>
+  <div class="set"><label>Cópia de segurança</label>
+   <p class="hint" style="margin-top:0">O progresso fica guardado neste telemóvel e neste navegador. Copia o texto para guardar ou passar para outro sítio.</p>
+   <textarea id="exp" readonly>${esc(JSON.stringify(S))}</textarea>
+   <button class="btn ghost" data-act="copy">Copiar dados</button>
+   <label for="imp" style="margin-top:14px">Importar dados</label>
+   <textarea id="imp" placeholder="Cola aqui o texto copiado"></textarea>
+   <button class="btn" data-act="import">Importar</button>
+   <div id="msg" class="hint" role="status"></div></div>
+  <div class="set"><label>Recomeçar</label><button class="btn danger" data-act="reset">Apagar progresso</button>
+   <p class="hint">Apaga as sessões marcadas. Os dias configurados ficam.</p></div>`;
+}
+function render(){
+  const app=document.getElementById("app");
+  app.innerHTML={hoje:vHoje,semanas:vSemanas,guia:vGuia,def:vDef}[UI.tab]();
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===UI.tab?"page":"false"));
+}
+document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;UI.tab=b.dataset.tab;UI.open=null;render();window.scrollTo(0,0)});
+document.getElementById("app").addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
+  if(a==="done"){const k=b.dataset.k;S.log[k]=S.log[k]||{};S.log[k].done=!S.log[k].done;save();render();}
+  else if(a==="feel"){const k=b.dataset.k;S.log[k]=S.log[k]||{};S.log[k].feel=S.log[k].feel===b.dataset.v?null:b.dataset.v;save();render();}
+  else if(a==="week"){UI.week=+b.dataset.w;UI.open=null;render();}
+  else if(a==="open"){const g=+b.dataset.g;UI.open=UI.open===g?null:g;render();}
+  else if(a==="pill"){const f=b.dataset.f,d=+b.dataset.d,c=S.cfg;
+    if(b.dataset.m==="1"){let v=c[f];if(v.includes(d))v=v.filter(x=>x!==d);else{v=[...v,d];if(f==="runs"&&v.length>2)v=v.slice(-2);}c[f]=v;}
+    else c[f]=d;save();render();}
+  else if(a==="copy"){const t=document.getElementById("exp");t.select();
+    const done=()=>document.getElementById("msg").textContent="Dados copiados.";
+    try{navigator.clipboard.writeText(t.value).then(done,()=>{document.execCommand("copy");done()})}catch(err){try{document.execCommand("copy");done()}catch(e2){}}}
+  else if(a==="import"){const m=document.getElementById("msg");try{const d=JSON.parse(document.getElementById("imp").value);if(!d.cfg)throw 0;S={cfg:Object.assign(defaults().cfg,d.cfg),log:d.log||{}};save();render();document.getElementById("msg").textContent="Dados importados.";}catch(err){m.textContent="O texto colado não é uma cópia válida. Copia de novo em “Copiar dados”.";}}
+  else if(a==="reset"){if(confirm("Apagar todas as sessões marcadas como feitas?")){S.log={};save();render();}}
+});
+document.getElementById("app").addEventListener("input",e=>{
+  const t=e.target;if(t.dataset.act==="name"){S.cfg.name=t.value;save();}
+  if(t.dataset.act==="pace"){S.cfg[t.dataset.f]=t.value;save();}
+});
+render();
+</script>
+</body>
+</html>
