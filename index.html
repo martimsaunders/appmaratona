@@ -35,10 +35,10 @@
   --g:#5BC38A;--a:#E5B23A;--r:#F05468;--nav:#0A101C;
 }
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%;overflow:hidden;background:var(--nav);-webkit-tap-highlight-color:transparent}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;min-height:100%}
-main{max-width:620px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;height:100%;display:flex;flex-direction:column;overflow:hidden}
+main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px max(16px,calc((100% - 588px) / 2)) 28px}
 h1,h2,h3{font-family:var(--cond);font-weight:700;line-height:1.1;margin:0}
 h2{font-size:1.6rem;margin:28px 0 10px}
 h3{font-size:1.25rem}
@@ -175,7 +175,7 @@ textarea{min-height:90px;font-size:.8rem}
 .hint{font-size:.88rem;color:var(--muted);margin-top:6px}
 
 /* Barra de baixo */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--nav);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
+nav.tabs{flex:none;position:relative;background:var(--nav);display:flex;justify-content:center;z-index:10}
 nav.tabs .in{display:flex;width:100%;max-width:620px;position:relative}
 nav.tabs .ind{position:absolute;top:0;left:0;width:25%;height:3px;background:var(--bib);border-radius:0 0 3px 3px;transition:transform .4s var(--ease)}
 nav.tabs button{flex:1;background:none;border:0;color:var(--navink);padding:10px 4px 12px;font-family:var(--cond);font-weight:600;font-size:1.05rem;min-height:56px;transition:color .25s}
@@ -532,7 +532,7 @@ function countUp(){const el=document.getElementById("bibn");if(!el)return;const 
 function setLog(k,f){S.log[k]=S.log[k]||{};f(S.log[k]);save();}
 
 document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.dataset.tab===UI.tab)return;
-  const dir=Math.sign(TABS.indexOf(b.dataset.tab)-TABS.indexOf(UI.tab));UI.tab=b.dataset.tab;render(dir);window.scrollTo(0,0)});
+  const dir=Math.sign(TABS.indexOf(b.dataset.tab)-TABS.indexOf(UI.tab));UI.tab=b.dataset.tab;render(dir);app.scrollTop=0});
 app.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
   if(a==="done"){const k=b.dataset.k;setLog(k,L=>L.done=!L.done);const on=S.log[k].done;
